@@ -1,0 +1,1 @@
+# This project is to test my skills to create a virtual assistant named Vada

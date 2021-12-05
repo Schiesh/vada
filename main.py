@@ -1,16 +1,18 @@
 import os
 import time
+import queue
 from datetime import date
 from pygame import mixer
 import speech_recognition as sr
 from gtts import gTTS
+
 
 bot_message = ""
 
 def speak(text):
     mixer.init()
     tempText = text.replace(" ", "_")
-    filename = tempText + ".mp3"
+    filename = "audio/" + tempText + ".mp3"
     if os.path.exists(filename):
         mixer.music.load(filename)
         mixer.music.play()
@@ -41,12 +43,18 @@ def get_audio():
 
     return said.lower()
 
-WAKE = "okay veda"
+WAKE = "okay"
+q = queue.Queue()
 print("Start")
 
 while True:
     print("Listening")
-    message = get_audio()
+
+    while q.empty():
+        mess = get_audio()
+        q.put(mess)
+
+    message = q.get()  
 
     if message.count(WAKE) > 0:
         speak("How may I assist you")
@@ -63,7 +71,7 @@ while True:
             date = today.strftime("%B %d %Y")
             speak("Today is " + date)
             dateTemp = date.replace(" ", "_")
-            os.remove("Today_is_" + dateTemp + ".mp3")
+            os.remove("audio/Today_is_" + dateTemp + ".mp3")
         
         if "bye" in message:
             speak("Have a nice day")

@@ -4,6 +4,6 @@
 
     Dependencies
         gTTS (Google Text to Speech)
-        playsound
+        pygame
         speechRecognition
         pyAudio

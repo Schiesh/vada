@@ -6,9 +6,6 @@ from pygame import mixer
 import speech_recognition as sr
 from gtts import gTTS
 
-
-bot_message = ""
-
 def speak(text):
     mixer.init()
     tempText = text.replace(" ", "_")
@@ -76,4 +73,3 @@ while True:
         if "bye" in message:
             speak("Have a nice day")
             speak("Good bye")
-            bot_message = "Bye"
